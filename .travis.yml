@@ -1,5 +1,4 @@
 language: python
 python:
  - 3.7
-script:
- - poker
+script: poker.py
