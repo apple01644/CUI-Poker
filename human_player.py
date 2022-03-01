@@ -21,7 +21,7 @@ class HumanPlayer(Player):
                     self.chip_count >= current_bet + betting_rounds
                     and self.suggested_bet <= 0):
                 sec.append('Raise')
-        print(sec, 'Your chips', self.chip_count, ',Now deal', current_bet)
+        print(sec, 'Your chips %d,' % self.chip_count, 'Now deal:', current_bet)
         print(self.hand)
         user_selected_answer = sec[int(input('select>')) - 1]
         if user_selected_answer == 'All in':

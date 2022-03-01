@@ -111,8 +111,6 @@ class Game:
 
     def kicking_players(self):
         for player in self.players:
-            player.hand = []
-            player.shown_card = []
             if player.chip_count == 0:
                 player.is_live = False
             else:
@@ -121,38 +119,38 @@ class Game:
     def prepare_player(self):
         for player in self.live_players():
             player.hand.clear()
-            player.shown_card.clear()
+            player.showed_card.clear()
 
     def show_down(self, money_in_pot):
         o = {'p': -1, 'i': -1}
         i = 0
         for player in self.players:
             if len(player.hand) > 0:
-                v = valuing(player.hand)
-                if v > o['p'] and player.is_live:
-                    o['p'] = v
+                value_of_hand = valuing(player.hand)
+                if value_of_hand > o['p'] and player.is_live:
+                    o['p'] = value_of_hand
                     o['i'] = i
                 i += 1
         i = 0
         for player in self.players:
             if len(player.hand) > 0:
-                v = valuing(player.hand)
+                value_of_hand = valuing(player.hand)
                 sleep(2)
                 if player.ai:
                     if i == o['i']:
-                        print('%-9s' % player.name, player.hand, v2w(v), '☆', player.chip_count, '+', money_in_pot)
+                        print('%-9s' % player.name, player.hand, v2w(value_of_hand), '☆', player.chip_count, '+', money_in_pot)
                     else:
                         if player.is_live:
-                            print('%-9s' % player.name, player.hand, v2w(v), player.chip_count)
+                            print('%-9s' % player.name, player.hand, v2w(value_of_hand), player.chip_count)
                         else:
                             print('%-9s' % player.name, player.hand, 'died', player.chip_count)
                 else:
                     if i == o['i']:
-                        print('%-9s' % player.name, player.hand, v2w(v), 'you', '☆', player.chip_count, '+',
+                        print('%-9s' % player.name, player.hand, v2w(value_of_hand), 'you', '☆', player.chip_count, '+',
                               money_in_pot)
                     else:
                         if player.is_live:
-                            print('%-9s' % player.name, player.hand, v2w(v), 'you', player.chip_count)
+                            print('%-9s' % player.name, player.hand, v2w(value_of_hand), 'you', player.chip_count)
                         else:
                             print('%-9s' % player.name, player.hand, 'died you', player.chip_count)
                 if i == o['i']:
@@ -210,7 +208,7 @@ class Game:
                 if not player.ai:
                     print('!you get', card)
                 else:
-                    print('%-9s' % player.name, player.shown_card)
+                    print('%-9s' % player.name, player.showed_card)
 
             money_in_pot += self.deal_bets()
             i = 0
@@ -223,7 +221,7 @@ class Game:
                     if not player.ai:
                         print('!you get', card)
                     else:
-                        print('%-9s' % player.name, player.shown_card)
+                        print('%-9s' % player.name, player.showed_card)
                 if i == 0:
                     i = 1
                     print('------------------')

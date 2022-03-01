@@ -22,7 +22,7 @@ class Player:
         self.chip_count: int = 10 + randint(0, 20)
         self.suggested_bet: int = 0
         self.hand: List[Card] = []
-        self.shown_card: List[Card] = []
+        self.showed_card: List[Card] = []
         self.is_live: bool = True
 
     def __repr__(self):
@@ -33,7 +33,7 @@ class Player:
         s += str(self.chip_count)
 
     def show_a_card(self, card: Card) -> NoReturn:
-        self.shown_card.append(card)
+        self.showed_card.append(card)
 
     def on_bet(self, current_bet: int, betting_rounds: int) -> DealBetsSignal:
         raise NotImplementedError()
